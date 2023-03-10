@@ -47,3 +47,6 @@ Please be aware, that older versions might contain vulnerabilities.
 ## :wave: Collaboration & Feedback
 If you have any feedback, ideas or extensions feel free to contact or create a GitHub issue. 
 If you are interested to find out what else we are doing, check out our website [viadee.de](https://www.viadee.de/en).
+
+## :key: License
+[![](https://img.shields.io/github/license/viadee/zeebe-openai-demo-connector)](https://github.com/viadee/zeebe-openai-demo-connector/blob/main/LICENSE)
