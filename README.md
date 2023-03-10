@@ -18,7 +18,7 @@ The Connector needs two required inputs:
 
 The 'Result Variable'-attribute specifies the variable the result is stored in, or a "Result Expression" can be used.
 
-![](docs/openai-connector.png | width=512)
+<img src="docs/openai-connector.png" width=512></img>
 
 
 ## :electric_plug: Connector
