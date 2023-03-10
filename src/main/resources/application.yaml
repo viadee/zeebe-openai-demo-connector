@@ -1,0 +1,21 @@
+#
+#
+#
+de.viadee.bpm.zeebe:
+  client:
+    region: ${ZB_REGION}
+    clusterId: ${ZB_CLUSTER}
+    clientId: ${ZB_CLIENT}
+    clientSecret: ${ZB_SECRET}
+  connector:
+    open-ai:
+      token: ${OPEN_AI_TOKEN}
+#
+#
+spring:
+  main:
+    web-application-type: none
+logging:
+  level:
+    root: warn
+    de.viadee: info
