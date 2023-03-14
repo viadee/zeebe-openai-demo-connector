@@ -40,6 +40,14 @@ This value can be obtained from your OpenAi account.
 Afterwards the Spring-Boot-Application can be started, and it executes jobs of type `de.viadee.bpm.zeebe.connector:openai:1`
 like specified in the [connector-template](connector-template/zeebe-openai-demo-connector.json) and in [OpenAiConfig.java](src/main/java/de/viadee/bpm/zeebe/config/OpenAiConfig.java) 
 
+## :link: Resources
+
+Also part of this repository
+
+- Process model using this OpenAi-Connector ([download](docs/kundenanliegen-verarbeiten-openai-custom-connector-process-camunda-8-saas.bpmn))
+- Process model using the official Rest-Connector ([download](docs/kundenanliegen-verarbeiten-rest-connector-process-camunda-8-saas.bpmn))
+- Linked decision table ([download](docs/kundenanliegen-bestimmen-fachprozess-ermitteln-rules.dmn))
+
 ## :page_facing_up: Slides
 
 This demo app has been presented here:  

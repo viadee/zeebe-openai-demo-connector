@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="fachprozess_bestimmen_drd" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Web Modeler" exporterVersion="60e1771" camunda:diagramRelationId="844fb66d-feac-4fb3-899d-14c4ac3d5b46" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <decision id="fachprozess_bestimmen" name="Fachprozess bestimmen">
+    <decisionTable id="DecisionTable_1gv3137" hitPolicy="FIRST">
+      <input id="Input_1" label="Einschätzung">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>concern_estimate</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0rag4ip" label="Stimmung">
+        <inputExpression id="LiteralExpression_1y5k0e5" typeRef="string">
+          <text>sentiment</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Fachprozess" name="fachprozess" typeRef="string">
+        <outputValues id="UnaryTests_03aau9w">
+          <text>"adresse_aendern","kuendigung","unbekannt","beschwerde"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0dwmq02">
+        <inputEntry id="UnaryTests_1o069rm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_174t1oh">
+          <text>contains(?, "negativ")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kw53v7">
+          <text>"beschwerde"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dxkemc">
+        <inputEntry id="UnaryTests_1wkaejf">
+          <text>contains(?, "beschwerde")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1joyvgq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fdtu80">
+          <text>"beschwerde"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jec5qm">
+        <inputEntry id="UnaryTests_0046s4k">
+          <text>contains(?, "beschweren")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14l2g8v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07cix79">
+          <text>"beschwerde"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vq376y">
+        <inputEntry id="UnaryTests_0jz3i8f">
+          <text>contains(?, "adresse")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1grlr8s">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gb9hvd">
+          <text>"adresse_aendern"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0hlex66">
+        <inputEntry id="UnaryTests_11zr8r1">
+          <text>contains(?, "kündigung")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yrkk6j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16crskp">
+          <text>"kuendigung"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0deks3o">
+        <inputEntry id="UnaryTests_1bfdost">
+          <text>contains(?, "kündigen")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00fcvw3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17vei9m">
+          <text>"kuendigung"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jsomvc">
+        <inputEntry id="UnaryTests_0uhngfh">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_074vjhe">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1prhesp">
+          <text>"unbekannt"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="fachprozess_bestimmen">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

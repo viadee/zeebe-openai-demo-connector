@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="b37faf9" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0" camunda:diagramRelationId="30a01f5c-455b-4c46-9531-fb24315624bc">
+  <bpmn:collaboration id="Collaboration_1fbeyts">
+    <bpmn:participant id="Participant_10et4bz" name="Kundenanliegen verarbeiten (Rest-Connector)" processRef="kundenanliegen-verarbeiten-rest-connector" />
+  </bpmn:collaboration>
+  <bpmn:process id="kundenanliegen-verarbeiten-rest-connector" name="Kundenanliegen verarbeiten (Rest-Connector)" isExecutable="true">
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="userTaskForm_3r7m79i">{
+  "components": [
+    {
+      "text": "# Fachprozess bestimmen",
+      "type": "text",
+      "id": "Field_0sbj23v"
+    },
+    {
+      "label": "Kundennliegen:",
+      "type": "textarea",
+      "id": "Field_0youavl",
+      "key": "input",
+      "disabled": true
+    },
+    {
+      "label": "Vorschlag Kundenanliegen",
+      "type": "textfield",
+      "id": "Field_1vwm9oe",
+      "key": "concern_estimate",
+      "disabled": true,
+      "description": "by OpenAI"
+    },
+    {
+      "label": "Sentimentanalyse",
+      "type": "textfield",
+      "id": "Field_12jvocj",
+      "key": "sentiment",
+      "disabled": true,
+      "description": "by OpenAI"
+    },
+    {
+      "values": [
+        {
+          "label": "Adressänderung",
+          "value": "adresse_aendern"
+        },
+        {
+          "label": "Beschwerde",
+          "value": "beschwerde"
+        },
+        {
+          "label": "Kündigung",
+          "value": "kuendigung"
+        },
+        {
+          "label": "Unbekannt",
+          "value": "unbekannt"
+        }
+      ],
+      "label": "Fachprozess",
+      "type": "select",
+      "id": "Field_01r9cbb",
+      "key": "field_0r5nk6j",
+      "searchable": true,
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "schemaVersion": 7,
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "47aa12c"
+  },
+  "type": "default",
+  "id": "Form_827b6cd2-0201-424a-acf1-e730ea7c53aa",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0"
+}</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_1h146ge">
+      <bpmn:lane id="Lane_0f5j95x" name="Automatisierung">
+        <bpmn:flowNodeRef>Activity_0wfp3c6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1eiiojg</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1rc5zno</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1w14l7q</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1ds5zxh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_10liq8e</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1bpmb9q</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_145207i</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_16ykers</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1j15quq" name="Sachbearbeitung">
+        <bpmn:flowNodeRef>Activity_0dq1jfe</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="Flow_1gbhxyu" sourceRef="Gateway_1rc5zno" targetRef="Activity_1eiiojg" />
+    <bpmn:sequenceFlow id="Flow_08wl089" sourceRef="Activity_1eiiojg" targetRef="Gateway_1w14l7q" />
+    <bpmn:sequenceFlow id="Flow_07s1sxu" sourceRef="Gateway_1rc5zno" targetRef="Activity_0wfp3c6" />
+    <bpmn:sequenceFlow id="Flow_04l6t2j" sourceRef="Activity_0wfp3c6" targetRef="Gateway_1w14l7q" />
+    <bpmn:sequenceFlow id="Flow_1nea1n0" sourceRef="StartEvent_1" targetRef="Gateway_1rc5zno" />
+    <bpmn:sequenceFlow id="Flow_1ahokfy" sourceRef="Activity_1ds5zxh" targetRef="Gateway_10liq8e" />
+    <bpmn:sequenceFlow id="Flow_08kra52" name="Ja" sourceRef="Gateway_10liq8e" targetRef="Gateway_1bpmb9q" />
+    <bpmn:sequenceFlow id="Flow_158ln8h" name="Nein" sourceRef="Gateway_10liq8e" targetRef="Activity_0dq1jfe">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=fachprozess="unbekannt"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0imima9" sourceRef="Activity_145207i" targetRef="Event_16ykers" />
+    <bpmn:sequenceFlow id="Flow_0vmnifz" sourceRef="Gateway_1bpmb9q" targetRef="Activity_145207i" />
+    <bpmn:sequenceFlow id="Flow_09uu5az" sourceRef="Activity_0dq1jfe" targetRef="Gateway_1bpmb9q" />
+    <bpmn:serviceTask id="Activity_0wfp3c6" name="Sentiment-analyse durchführen" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateIcon="data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M17.0335%208.99997C17.0335%2013.4475%2013.4281%2017.0529%208.98065%2017.0529C4.53316%2017.0529%200.927765%2013.4475%200.927765%208.99997C0.927765%204.55248%204.53316%200.947083%208.98065%200.947083C13.4281%200.947083%2017.0335%204.55248%2017.0335%208.99997Z%22%20fill%3D%22%23505562%22%2F%3E%0A%3Cpath%20d%3D%22M4.93126%2014.1571L6.78106%203.71471H10.1375C11.1917%203.71471%2011.9824%203.98323%2012.5095%204.52027C13.0465%205.04736%2013.315%205.73358%2013.315%206.57892C13.315%207.44414%2013.0714%208.15522%2012.5841%208.71215C12.1067%209.25913%2011.4553%209.63705%2010.6298%209.8459L12.0619%2014.1571H10.3315L9.03364%2010.0249H7.24351L6.51254%2014.1571H4.93126ZM7.49711%208.59281H9.24248C9.99832%208.59281%2010.5901%208.42374%2011.0177%208.08561C11.4553%207.73753%2011.6741%207.26513%2011.6741%206.66842C11.6741%206.19106%2011.5249%205.81811%2011.2265%205.54959C10.9282%205.27113%2010.4558%205.1319%209.80936%205.1319H8.10874L7.49711%208.59281Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E%0A">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="bearer" target="authentication.type" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="https://api.openai.com/v1/completions" target="url" />
+          <zeebe:input source="={&#10;  Content-Type: application/json,&#10;  OpenAI-Organization: &#34;secrets.OPEN_AI_ORGA_KEY&#34;&#10;}" target="headers" />
+          <zeebe:input source="secrets.OPEN_AI_API_KEY" target="authentication.token" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="={&#10;  model: &#34;text-davinci-003&#34;,&#10;  prompt: &#34;Klassifiziere das Sentiment in dieser Aussage: &#34; + input + &#34; Sentiment:&#34;, &#10;  temperature: 0, &#10;  max_tokens: 50&#10;}" target="body" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultExpression" value="={&#10;  sentiment: lower case(response.body.choices.text[1])&#10;}" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_07s1sxu</bpmn:incoming>
+      <bpmn:outgoing>Flow_04l6t2j</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1vnn6kt" sourceRef="Gateway_1w14l7q" targetRef="Activity_1ds5zxh" />
+    <bpmn:userTask id="Activity_0dq1jfe" name="Fachprozess manuell bestimmen">
+      <bpmn:extensionElements>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:userTaskForm_3r7m79i" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_158ln8h</bpmn:incoming>
+      <bpmn:outgoing>Flow_09uu5az</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Activity_1eiiojg" name="Kunden-anliegen einschätzen" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateIcon="data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M17.0335%208.99997C17.0335%2013.4475%2013.4281%2017.0529%208.98065%2017.0529C4.53316%2017.0529%200.927765%2013.4475%200.927765%208.99997C0.927765%204.55248%204.53316%200.947083%208.98065%200.947083C13.4281%200.947083%2017.0335%204.55248%2017.0335%208.99997Z%22%20fill%3D%22%23505562%22%2F%3E%0A%3Cpath%20d%3D%22M4.93126%2014.1571L6.78106%203.71471H10.1375C11.1917%203.71471%2011.9824%203.98323%2012.5095%204.52027C13.0465%205.04736%2013.315%205.73358%2013.315%206.57892C13.315%207.44414%2013.0714%208.15522%2012.5841%208.71215C12.1067%209.25913%2011.4553%209.63705%2010.6298%209.8459L12.0619%2014.1571H10.3315L9.03364%2010.0249H7.24351L6.51254%2014.1571H4.93126ZM7.49711%208.59281H9.24248C9.99832%208.59281%2010.5901%208.42374%2011.0177%208.08561C11.4553%207.73753%2011.6741%207.26513%2011.6741%206.66842C11.6741%206.19106%2011.5249%205.81811%2011.2265%205.54959C10.9282%205.27113%2010.4558%205.1319%209.80936%205.1319H8.10874L7.49711%208.59281Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E%0A">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="bearer" target="authentication.type" />
+          <zeebe:input source="post" target="method" />
+          <zeebe:input source="https://api.openai.com/v1/completions" target="url" />
+          <zeebe:input source="={&#10;  Content-Type: application/json,&#10;  OpenAI-Organization: &#34;secrets.OPEN_AI_ORGA_KEY&#34;&#10;}" target="headers" />
+          <zeebe:input source="secrets.OPEN_AI_API_KEY" target="authentication.token" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="={&#10;  model: &#34;text-davinci-003&#34;,&#10;  prompt: &#34;Was ist das Kundenanliegen? &#34; &#10;          + input + &#34; Kundenanliegen:&#34;, &#10;  temperature: 0, &#10;  max_tokens: 50&#10;}" target="body" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultExpression" value="={&#10;  concern_estimate: &#10;    lower case(&#10;      response.body.choices.text[1])&#10;}" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1gbhxyu</bpmn:incoming>
+      <bpmn:outgoing>Flow_08wl089</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="Gateway_1rc5zno">
+      <bpmn:incoming>Flow_1nea1n0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1gbhxyu</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07s1sxu</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:startEvent id="StartEvent_1" name="Kundenanliegen eingetroffen">
+      <bpmn:outgoing>Flow_1nea1n0</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:parallelGateway id="Gateway_1w14l7q">
+      <bpmn:incoming>Flow_08wl089</bpmn:incoming>
+      <bpmn:incoming>Flow_04l6t2j</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vnn6kt</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:businessRuleTask id="Activity_1ds5zxh" name="Fachprozess bestimmen">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="fachprozess_bestimmen" resultVariable="fachprozess" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vnn6kt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ahokfy</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="Gateway_10liq8e" name="Fachprozess identifiziert?" default="Flow_08kra52">
+      <bpmn:incoming>Flow_1ahokfy</bpmn:incoming>
+      <bpmn:outgoing>Flow_08kra52</bpmn:outgoing>
+      <bpmn:outgoing>Flow_158ln8h</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_1bpmb9q">
+      <bpmn:incoming>Flow_08kra52</bpmn:incoming>
+      <bpmn:incoming>Flow_09uu5az</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vmnifz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:callActivity id="Activity_145207i" name="Fachprozess durchführen">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="=fachprozess" propagateAllChildVariables="false" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0vmnifz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0imima9</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:endEvent id="Event_16ykers" name="Kundenanliegen bearbeitet">
+      <bpmn:incoming>Flow_0imima9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:textAnnotation id="TextAnnotation_1ce8ukt">
+      <bpmn:text>Kündigung
+Adressänderung
+Beschwerde
+Unbekannt</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_0eezbnt" sourceRef="Activity_145207i" targetRef="TextAnnotation_1ce8ukt" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1fbeyts">
+      <bpmndi:BPMNShape id="Participant_10et4bz_di" bpmnElement="Participant_10et4bz" isHorizontal="true">
+        <dc:Bounds x="159" y="80" width="1400" height="560" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1j15quq_di" bpmnElement="Lane_1j15quq" isHorizontal="true">
+        <dc:Bounds x="189" y="470" width="1370" height="170" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_0f5j95x_di" bpmnElement="Lane_0f5j95x" isHorizontal="true">
+        <dc:Bounds x="189" y="80" width="1370" height="390" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wfbuus_di" bpmnElement="Activity_0wfp3c6">
+        <dc:Bounds x="460" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0d1oofe_di" bpmnElement="Activity_0dq1jfe">
+        <dc:Bounds x="995" y="510" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1noqkx2_di" bpmnElement="Activity_1eiiojg">
+        <dc:Bounds x="460" y="150" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1cm6r4i_di" bpmnElement="Gateway_1rc5zno">
+        <dc:Bounds x="365" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1nvdrc5_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="260" y="267" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="238" y="321" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_186x3zr_di" bpmnElement="Gateway_1w14l7q">
+        <dc:Bounds x="605" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_186zr04_di" bpmnElement="Activity_1ds5zxh">
+        <dc:Bounds x="720" y="245" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_10liq8e_di" bpmnElement="Gateway_10liq8e" isMarkerVisible="true">
+        <dc:Bounds x="895" y="260" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="888" y="223" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1bpmb9q_di" bpmnElement="Gateway_1bpmb9q" isMarkerVisible="true">
+        <dc:Bounds x="1145" y="260" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fcsrpl_di" bpmnElement="Activity_145207i">
+        <dc:Bounds x="1280" y="245" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16ykers_di" bpmnElement="Event_16ykers">
+        <dc:Bounds x="1442" y="267" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1420" y="310" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1ce8ukt_di" bpmnElement="TextAnnotation_1ce8ukt">
+        <dc:Bounds x="1190" y="140" width="200" height="70" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1gbhxyu_di" bpmnElement="Flow_1gbhxyu">
+        <di:waypoint x="390" y="260" />
+        <di:waypoint x="390" y="190" />
+        <di:waypoint x="460" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08wl089_di" bpmnElement="Flow_08wl089">
+        <di:waypoint x="560" y="190" />
+        <di:waypoint x="630" y="190" />
+        <di:waypoint x="630" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07s1sxu_di" bpmnElement="Flow_07s1sxu">
+        <di:waypoint x="390" y="310" />
+        <di:waypoint x="390" y="380" />
+        <di:waypoint x="460" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04l6t2j_di" bpmnElement="Flow_04l6t2j">
+        <di:waypoint x="560" y="380" />
+        <di:waypoint x="630" y="380" />
+        <di:waypoint x="630" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nea1n0_di" bpmnElement="Flow_1nea1n0">
+        <di:waypoint x="296" y="285" />
+        <di:waypoint x="365" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ahokfy_di" bpmnElement="Flow_1ahokfy">
+        <di:waypoint x="820" y="285" />
+        <di:waypoint x="895" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08kra52_di" bpmnElement="Flow_08kra52">
+        <di:waypoint x="945" y="285" />
+        <di:waypoint x="1145" y="285" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="987" y="267" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_158ln8h_di" bpmnElement="Flow_158ln8h">
+        <di:waypoint x="920" y="310" />
+        <di:waypoint x="920" y="550" />
+        <di:waypoint x="995" y="550" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="928" y="327" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0imima9_di" bpmnElement="Flow_0imima9">
+        <di:waypoint x="1380" y="285" />
+        <di:waypoint x="1442" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vmnifz_di" bpmnElement="Flow_0vmnifz">
+        <di:waypoint x="1195" y="285" />
+        <di:waypoint x="1280" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09uu5az_di" bpmnElement="Flow_09uu5az">
+        <di:waypoint x="1095" y="550" />
+        <di:waypoint x="1170" y="550" />
+        <di:waypoint x="1170" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vnn6kt_di" bpmnElement="Flow_1vnn6kt">
+        <di:waypoint x="655" y="285" />
+        <di:waypoint x="720" y="285" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0eezbnt_di" bpmnElement="Association_0eezbnt">
+        <di:waypoint x="1304" y="245" />
+        <di:waypoint x="1280" y="210" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
