@@ -38,7 +38,7 @@ These values can be obtained from your C8 cluster.
 This value can be obtained from your OpenAi account.   
 
 Afterwards the Spring-Boot-Application can be started, and it executes jobs of type `de.viadee.bpm.zeebe.connector:openai:1`
-like specified in the connector-template and in [OpenAiConfig.java](src/main/java/de/viadee/bpm/zeebe/config/OpenAiConfig.java) 
+like specified in the [connector-template](connector-template/zeebe-openai-demo-connector.json) and in [OpenAiConfig.java](src/main/java/de/viadee/bpm/zeebe/config/OpenAiConfig.java) 
 
 ## :paperclip: Note
 The versions of this demo are not maintained, i.e. dependencies might be outdated sometime.
