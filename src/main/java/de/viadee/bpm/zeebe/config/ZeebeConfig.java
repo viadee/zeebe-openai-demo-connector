@@ -30,13 +30,13 @@ public class ZeebeConfig {
     }
 
     private CredentialsProvider credentials() {
-        return new OAuthCredentialsProviderBuilder()
-                .audience(format("%s.%s.%s",
-                        zeebeClient.getClusterId(),
-                        zeebeClient.getRegion(),
-                        zeebeUrl))
-                .clientId(zeebeClient.getClientId())
-                .clientSecret(zeebeClient.getClientSecret())
-                .build();
+        return CredentialsProvider.newCredentialsProviderBuilder()
+                                  .audience(format("%s.%s.%s",
+                                          zeebeClient.getClusterId(),
+                                          zeebeClient.getRegion(),
+                                          zeebeUrl))
+                                  .clientId(zeebeClient.getClientId())
+                                  .clientSecret(zeebeClient.getClientSecret())
+                                  .build();
     }
 }
