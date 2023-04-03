@@ -12,8 +12,8 @@
     <properties>
         <java.version>17</java.version>
         <spring-boot.version>3.0.4</spring-boot.version>
-        <zeebe-client-java.version>8.2.0-alpha4</zeebe-client-java.version>
-        <camunda-connector.version>0.7.0-alpha2</camunda-connector.version>
+        <zeebe-client-java.version>8.2.0-rc1</zeebe-client-java.version>
+        <camunda-connector.version>0.7.0</camunda-connector.version>
         <theokanning-open-ai-service.version>0.10.0</theokanning-open-ai-service.version>
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
