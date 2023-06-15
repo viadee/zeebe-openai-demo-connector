@@ -1,7 +1,8 @@
 {
   "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-  "name": "Cataas Connector",
+  "name": "Cat Connector (CataaS)",
   "id": "84bf007e-c41d-4159-9cec-00b33f3cbffd",
+  "description": "Get a cat-image with a label saying anything, e.g. MEOW. Output can be found in variable 'cat_image_url'",
   "appliesTo": [
     "bpmn:Task"
   ],
@@ -23,6 +24,17 @@
       }
     },
     {
+      "label": "Cat says:",
+      "description": "meow?!",
+      "group": "properties",
+      "type": "String",
+      "feel": "optional",
+      "binding": {
+        "type": "zeebe:input",
+        "name": "cat_image_label"
+      }
+    },
+    {
       "label": "Request URL",
       "type": "Hidden",
       "editable": false,
@@ -31,7 +43,7 @@
         "type": "zeebe:input",
         "name": "url"
       },
-      "value": "https://cataas.com/cat/cute/says/Entschuldigung,%20es%20tut%20uns%20leid%20:(?json=true"
+      "value": "=\"https://cataas.com/cat/cute/says/\"+cat_image_label+\"?json=true\""
     },
     {
       "type": "Hidden",
@@ -43,11 +55,12 @@
     },
     {
       "type": "Hidden",
+      "editable": false,
       "binding": {
         "type": "zeebe:taskHeader",
         "key": "resultExpression"
       },
-      "value": "{ \"cat_image_url\": \"https://cataas.com\" + response.body.url}"
+      "value": "={cat_image_url:\"https://cataas.com\"+response.body.url}"
     }
   ],
   "icon": {
