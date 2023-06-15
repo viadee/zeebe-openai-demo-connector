@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@camunda/zeebe-element-templates-json-schema/resources/schema.json",
-  "name": "OpenAI Connector",
+  "name": "Kundenanliegen (OpenAi)",
   "id": "7073c7df-996e-4ad2-8a74-623c2d4aeab6",
   "appliesTo": [
     "bpmn:Task"

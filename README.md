@@ -44,15 +44,17 @@ like specified in the [connector-template](connector-template/zeebe-openai-demo-
 
 Also part of this repository
 
-- Process model using this OpenAi-Connector ([download](docs/kundenanliegen-verarbeiten-openai-custom-connector-process-camunda-8-saas.bpmn))
-- Process model using the official Rest-Connector ([download](docs/kundenanliegen-verarbeiten-rest-connector-process-camunda-8-saas.bpmn))
-- Linked decision table ([download](docs/kundenanliegen-bestimmen-fachprozess-ermitteln-rules.dmn))
+- Process model using this OpenAi-Connector ([download](camunda-8-resources/kundenanliegen-verarbeiten-openai-custom-connector-process-camunda-8-saas.bpmn))
+- Process model using the official Rest-Connector ([download](camunda-8-resources/kundenanliegen-verarbeiten-rest-connector-process-camunda-8-saas.bpmn))
+- Linked decision table ([download](camunda-8-resources/kundenanliegen-bestimmen-fachprozess-ermitteln-rules.dmn))
 
 ## :page_facing_up: Slides
 
 This demo app has been presented here:  
 
--  14.03.2023, Navigate Kongress, [PDF](docs/Navigate_2023_Low-Code_Camunda_8_14032023.pdf)
+-  14.03.2023, Navigate Kongress, [PDF](docs/2023-03-14_Navigate_2023_Low-Code_Camunda_8.pdf)
+-  04.04.2023, Camunda Chapter Rheinland/Ruhrgebiet, [PDF](docs/2023-04-04_Chapter_Rheinland_Camunda-8_Low-Code_Connectors.pdf)
+-  14.03.2023, Camunda Chapter Hamburg, [PDF](docs/2023-06-14_Chapter_Hamburg-Low-Code_Camunda_8.pdf)
 
 ## :paperclip: Note
 The versions of this demo are not maintained, i.e. dependencies might be outdated sometime.

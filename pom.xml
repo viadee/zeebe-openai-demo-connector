@@ -11,12 +11,13 @@
 
     <properties>
         <java.version>17</java.version>
-        <spring-boot.version>3.0.4</spring-boot.version>
-        <zeebe-client-java.version>8.2.0-rc1</zeebe-client-java.version>
-        <camunda-connector.version>0.7.0</camunda-connector.version>
-        <theokanning-open-ai-service.version>0.10.0</theokanning-open-ai-service.version>
+        <spring-boot.version>3.1.0</spring-boot.version>
+        <zeebe-client-java.version>8.2.6</zeebe-client-java.version>
+        <camunda-connector.version>0.10.0-rc1</camunda-connector.version>
+        <camunda-connector-runtime-util.version>0.9.0</camunda-connector-runtime-util.version>
+        <theokanning-open-ai-service.version>0.12.0</theokanning-open-ai-service.version>
 
-        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <spring-banner-plugin.version>1.5.2</spring-banner-plugin.version>
 
     </properties>
@@ -64,7 +65,7 @@
         <dependency>
             <groupId>io.camunda.connector</groupId>
             <artifactId>connector-runtime-util</artifactId>
-            <version>${camunda-connector.version}</version>
+            <version>${camunda-connector-runtime-util.version}</version>
         </dependency>
 
         <dependency>
